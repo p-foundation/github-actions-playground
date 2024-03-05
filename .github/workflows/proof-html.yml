@@ -1,0 +1,28 @@
+name: proof-html
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  proof-html:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use NodeJS 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run:  |
+          npm install
+          npm run build
+      - uses: anishathalye/proof-html@v2
+        with:
+          directory: ./dist
+          check_favicon: false
+          enforce_https: false
+          ignore_url: |
+            http://webpack.js.org/guides/getting-started/
+            https://webpack.js.org/guides/getting-started/
+          ignore_url_re: |
+            ^https://webpack.js.org/
