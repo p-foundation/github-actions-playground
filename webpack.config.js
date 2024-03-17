@@ -7,7 +7,7 @@ module.exports = {
   entry: { main: './src/index.js' }, // entry point for bundling
   output: {
     path: path.resolve(__dirname, 'dist'), // output path using the path utility
-    filename: 'main.js', // sets the output file name
+    filename: 'main.[contenthash].js', // sets the output file name
     publicPath: '', // specify the base path for all assets
   },
   mode: 'development',
@@ -55,6 +55,8 @@ module.exports = {
       template: './src/index.html', // path to the index.html file
     }),
     new CleanWebpackPlugin(), // invokes CleanWebpackPlugin plugin
-    new MiniCssExtractPlugin(), // invokes MiniCssExtractPlugin plugin
+    new MiniCssExtractPlugin({
+      filename: 'main.[contenthash].css',
+    }), // invokes MiniCssExtractPlugin plugin
   ],
 }
