@@ -1,0 +1,30 @@
+name: Validate HTML
+on:
+  push:
+jobs:
+  html-check:
+    name: Validate HTML
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+      - name: Use NodeJS 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install and Build 🛠️
+        run:  |
+          npm install
+          npm run build
+      - name: Run HTML5 Validator ⚙️
+        uses: Cyb3r-Jak3/html5validator-action@master
+        with:
+          root: dist/
+          format: text
+      - name: Run CSS Check
+        uses: Cyb3r-Jak3/html5validator-action@master
+        with:
+          root: dist/
+          blacklist: index.html
+          format: text
+          css: true
