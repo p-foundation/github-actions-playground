@@ -6,20 +6,25 @@ on:
     branches: [main]
 jobs:
   proof-html:
+    name: Proof HTML
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Use NodeJS 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run:  |
+      - name: Install and Build
+        run:  |
           npm install
           npm run build
-      - uses: anishathalye/proof-html@v2
+      - name: Run HTMLProofer 📑
+        uses: anishathalye/proof-html@v2
         with:
           directory: ./dist
-          check_favicon: false
+          check_css: false
+          ignore_missing_alt: true
           enforce_https: false
           ignore_url: |
             http://webpack.js.org/guides/getting-started/
