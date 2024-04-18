@@ -1,4 +1,4 @@
-name: proof-html
+name: Proof HTML
 on:
   push:
     branches: [main]
