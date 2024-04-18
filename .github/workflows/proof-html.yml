@@ -1,9 +1,6 @@
 name: Proof HTML
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
 jobs:
   proof-html:
     name: Proof HTML
