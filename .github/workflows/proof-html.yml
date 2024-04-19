@@ -1,0 +1,30 @@
+name: Proof HTML
+on:
+  push:
+jobs:
+  proof-html:
+    name: Proof HTML
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use NodeJS 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install and Build
+        run:  |
+          npm install
+          npm run build
+      - name: Run HTMLProofer 📑
+        uses: anishathalye/proof-html@v2
+        with:
+          directory: ./dist
+          check_css: false
+          ignore_missing_alt: true
+          enforce_https: false
+          ignore_url: |
+            http://webpack.js.org/guides/getting-started/
+            https://webpack.js.org/guides/getting-started/
+          ignore_url_re: |
+            ^https://webpack.js.org/

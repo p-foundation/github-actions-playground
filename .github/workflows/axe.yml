@@ -1,0 +1,23 @@
+name: Test Accessibility
+on:
+  push:
+jobs:
+  axe:
+    name: Test Accessibility
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use NodeJS 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install and Build
+        run:  |
+          npm ci
+          npm run build --if-present
+          npm run dev & npx wait-on http://localhost:8080
+      - name: Run Axe 🕊️
+        run: |
+          npm install -g @axe-core/cli
+          axe http://localhost:8080 --exit
